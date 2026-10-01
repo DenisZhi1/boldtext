@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Unicode Bold Converter</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1d2530;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 700px;
+      background: white;
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 30px;
+    }
+
+    .description {
+      margin-top: 0;
+      margin-bottom: 25px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 140px;
+      resize: vertical;
+
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 16px;
+
+      font-size: 18px;
+      line-height: 1.5;
+      outline: none;
+
+      transition: 0.2s;
+    }
+
+    textarea:focus {
+      border-color: #2563eb;
+    }
+
+    .output {
+      margin-top: 22px;
+    }
+
+    #result {
+      min-height: 140px;
+      background: #f8fafc;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 16px;
+      border: 0;
+      border-radius: 14px;
+      padding: 15px 20px;
+
+      background: #2563eb;
+      color: white;
+
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    button:active {
+      transform: scale(0.99);
+    }
+
+    .example {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 14px;
+      background: #eff6ff;
+      line-height: 1.6;
+    }
+
+    .small {
+      font-size: 13px;
+      color: #9ca3af;
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+
+    <h1>𝐁𝐨𝐥𝐝 𝐓𝐞𝐱𝐭 Converter</h1>
+
+    <p class="description">
+      Превращает обычные латинские буквы и цифры
+      в жирные Unicode-символы.
+    </p>
+
+    <label for="input">Обычный текст</label>
+
+    <textarea
+      id="input"
+      placeholder="Например: Prepositions of Place"
+    ></textarea>
+
+
+    <div class="output">
+
+      <label for="result">Результат</label>
+
+      <textarea
+        id="result"
+        readonly
+        placeholder="Здесь появится результат..."
+      ></textarea>
+
+    </div>
+
+    <button id="copyBtn">
+      Скопировать
+    </button>
+
+
+    <div class="example">
+      Prepositions of Place
+      <br>
+      ↓
+      <br>
+      𝐏𝐫𝐞𝐩𝐨𝐬𝐢𝐭𝐢𝐨𝐧𝐬 𝐨𝐟 𝐏𝐥𝐚𝐜𝐞
+    </div>
+
+    <div class="small">
+      Работает прямо в браузере. Ничего устанавливать не нужно.
+    </div>
+
+  </div>
+
+
+<script>
+
+const input = document.getElementById("input");
+const result = document.getElementById("result");
+const copyBtn = document.getElementById("copyBtn");
+
+
+function toUnicodeBold(text) {
+
+  let output = "";
+
+  for (const char of text) {
+
+    const code = char.codePointAt(0);
+
+    // A-Z
+    if (code >= 65 && code <= 90) {
+      output += String.fromCodePoint(
+        0x1D400 + (code - 65)
+      );
+    }
+
+    // a-z
+    else if (code >= 97 && code <= 122) {
+      output += String.fromCodePoint(
+        0x1D41A + (code - 97)
+      );
+    }
+
+    // 0-9
+    else if (code >= 48 && code <= 57) {
+      output += String.fromCodePoint(
+        0x1D7CE + (code - 48)
+      );
+    }
+
+    // остальные символы оставляем как есть
+    else {
+      output += char;
+    }
+
+  }
+
+  return output;
+}
+
+
+input.addEventListener("input", () => {
+
+  result.value = toUnicodeBold(input.value);
+
+});
+
+
+copyBtn.addEventListener("click", async () => {
+
+  if (!result.value) {
+    return;
+  }
+
+  try {
+
+    await navigator.clipboard.writeText(result.value);
+
+    copyBtn.textContent = "✓ Скопировано";
+
+    setTimeout(() => {
+      copyBtn.textContent = "Скопировать";
+    }, 1500);
+
+  }
+
+  catch {
+
+    result.select();
+    document.execCommand("copy");
+
+    copyBtn.textContent = "✓ Скопировано";
+
+    setTimeout(() => {
+      copyBtn.textContent = "Скопировать";
+    }, 1500);
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
