@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Unicode Bold Converter</title>
+  <title>Unicode Text Converter</title>
 
   <style>
     * {
@@ -14,252 +13,359 @@
     body {
       margin: 0;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-
+      padding: 40px 20px;
       font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      color: #1d2530;
+      background: #f3f6fb;
+      color: #172033;
     }
 
     .app {
       width: 100%;
-      max-width: 700px;
-      background: white;
-      border-radius: 24px;
-      padding: 30px;
-      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+      max-width: 850px;
+      margin: 0 auto;
     }
 
     h1 {
-      margin-top: 0;
-      margin-bottom: 8px;
-      font-size: 30px;
+      margin: 0 0 8px;
+      font-size: 34px;
     }
 
-    .description {
-      margin-top: 0;
-      margin-bottom: 25px;
-      color: #6b7280;
+    .subtitle {
+      margin: 0 0 30px;
+      color: #667085;
       line-height: 1.5;
+    }
+
+    .input-card {
+      background: white;
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.06);
+      margin-bottom: 25px;
     }
 
     label {
       display: block;
+      margin-bottom: 10px;
       font-weight: 700;
-      margin-bottom: 8px;
     }
 
     textarea {
       width: 100%;
-      min-height: 140px;
+      min-height: 120px;
       resize: vertical;
-
-      border: 2px solid #e5e7eb;
-      border-radius: 16px;
       padding: 16px;
-
+      border: 2px solid #e4e7ec;
+      border-radius: 15px;
       font-size: 18px;
       line-height: 1.5;
       outline: none;
-
-      transition: 0.2s;
     }
 
     textarea:focus {
       border-color: #2563eb;
     }
 
-    .output {
-      margin-top: 22px;
+    .results {
+      display: grid;
+      gap: 15px;
     }
 
-    #result {
-      min-height: 140px;
-      background: #f8fafc;
+    .style-card {
+      background: white;
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 6px 25px rgba(0,0,0,.05);
     }
 
-    button {
-      width: 100%;
-      margin-top: 16px;
+    .style-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 12px;
+    }
+
+    .style-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #667085;
+    }
+
+    .copy-btn {
       border: 0;
-      border-radius: 14px;
-      padding: 15px 20px;
-
-      background: #2563eb;
-      color: white;
-
-      font-size: 17px;
+      background: #eef4ff;
+      color: #2563eb;
+      border-radius: 10px;
+      padding: 8px 13px;
       font-weight: 700;
       cursor: pointer;
-
-      transition: 0.2s;
     }
 
-    button:hover {
-      background: #1d4ed8;
+    .copy-btn:hover {
+      background: #dbeafe;
     }
 
-    button:active {
-      transform: scale(0.99);
+    .output {
+      font-size: 22px;
+      line-height: 1.5;
+      min-height: 34px;
+      word-break: break-word;
     }
 
-    .example {
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 14px;
-      background: #eff6ff;
-      line-height: 1.6;
-    }
-
-    .small {
+    .note {
+      margin-top: 25px;
+      color: #98a2b3;
       font-size: 13px;
-      color: #9ca3af;
-      margin-top: 20px;
       text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 20px 12px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .output {
+        font-size: 19px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="app">
+<div class="app">
 
-    <h1>𝐁𝐨𝐥𝐝 𝐓𝐞𝐱𝐭 Converter</h1>
+  <h1>Unicode Text Converter</h1>
 
-    <p class="description">
-      Превращает обычные латинские буквы и цифры
-      в жирные Unicode-символы.
-    </p>
+  <p class="subtitle">
+    Введите обычный текст и получите несколько вариантов оформления.
+    Можно копировать и вставлять в VK, Telegram, Instagram и другие сервисы.
+  </p>
 
-    <label for="input">Обычный текст</label>
+  <div class="input-card">
+    <label for="input">Ваш текст</label>
 
     <textarea
       id="input"
       placeholder="Например: Prepositions of Place"
-    ></textarea>
-
-
-    <div class="output">
-
-      <label for="result">Результат</label>
-
-      <textarea
-        id="result"
-        readonly
-        placeholder="Здесь появится результат..."
-      ></textarea>
-
-    </div>
-
-    <button id="copyBtn">
-      Скопировать
-    </button>
-
-
-    <div class="example">
-      Prepositions of Place
-      <br>
-      ↓
-      <br>
-      𝐏𝐫𝐞𝐩𝐨𝐬𝐢𝐭𝐢𝐨𝐧𝐬 𝐨𝐟 𝐏𝐥𝐚𝐜𝐞
-    </div>
-
-    <div class="small">
-      Работает прямо в браузере. Ничего устанавливать не нужно.
-    </div>
-
+    >Prepositions of Place</textarea>
   </div>
 
+  <div class="results" id="results"></div>
+
+  <div class="note">
+    Кириллица и неподдерживаемые символы остаются без изменений.
+  </div>
+
+</div>
 
 <script>
 
-const input = document.getElementById("input");
-const result = document.getElementById("result");
-const copyBtn = document.getElementById("copyBtn");
+const normalUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const normalLower = "abcdefghijklmnopqrstuvwxyz";
+const normalDigits = "0123456789";
 
 
-function toUnicodeBold(text) {
+const styles = [
+
+  {
+    name: "𝐁𝐨𝐥𝐝",
+    upper: [..."𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙"],
+    lower: [..."𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳"],
+    digits: [..."𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗"]
+  },
+
+  {
+    name: "𝐼𝑡𝑎𝑙𝑖𝑐",
+    upper: [..."𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐽𝐾𝐿𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍"],
+    lower: [..."𝑎𝑏𝑐𝑑𝑒𝑓𝑔ℎ𝑖𝑗𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧"],
+    digits: [...normalDigits]
+  },
+
+  {
+    name: "𝑩𝒐𝒍𝒅 𝑰𝒕𝒂𝒍𝒊𝒄",
+    upper: [..."𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿𝒀𝒁"],
+    lower: [..."𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛"],
+    digits: [...normalDigits]
+  },
+
+  {
+    name: "𝒮𝒸𝓇𝒾𝓅𝓉",
+    upper: [..."𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ𝒩𝒪𝒫𝒬ℛ𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵"],
+    lower: [..."𝒶𝒷𝒸𝒹ℯ𝒻ℊ𝒽𝒾𝒿𝓀𝓁𝓂𝓃ℴ𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏"],
+    digits: [...normalDigits]
+  },
+
+  {
+    name: "𝓑𝓸𝓵𝓭 𝓢𝓬𝓻𝓲𝓹𝓽",
+    upper: [..."𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩"],
+    lower: [..."𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃"],
+    digits: [...normalDigits]
+  },
+
+  {
+    name: "𝔉𝔯𝔞𝔨𝔱𝔲𝔯",
+    upper: [..."𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔘𝔙𝔚𝔛𝔜ℨ"],
+    lower: [..."𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷"],
+    digits: [...normalDigits]
+  },
+
+  {
+    name: "𝔻𝕠𝕦𝕓𝕝𝕖",
+    upper: [..."𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ"],
+    lower: [..."𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫"],
+    digits: [..."𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡"]
+  },
+
+  {
+    name: "𝙼𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎",
+    upper: [..."𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉"],
+    lower: [..."𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣"],
+    digits: [..."𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿"]
+  },
+
+  {
+    name: "𝖲𝖺𝗇𝗌 𝖲𝖾𝗋𝗂𝖿",
+    upper: [..."𝖠𝖡𝖢𝖣𝖤𝖥𝖦𝖧𝖨𝖩𝖪𝖫𝖬𝖭𝖮𝖯𝖰𝖱𝖲𝖳𝖴𝖵𝖶𝖷𝖸𝖹"],
+    lower: [..."𝖺𝖻𝖼𝖽𝖾𝖿𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓"],
+    digits: [..."𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫"]
+  },
+
+  {
+    name: "𝗦𝗮𝗻𝘀 𝗕𝗼𝗹𝗱",
+    upper: [..."𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭"],
+    lower: [..."𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇"],
+    digits: [..."𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵"]
+  }
+
+];
+
+
+function convert(text, style) {
 
   let output = "";
 
   for (const char of text) {
 
-    const code = char.codePointAt(0);
+    let index;
 
-    // A-Z
-    if (code >= 65 && code <= 90) {
-      output += String.fromCodePoint(
-        0x1D400 + (code - 65)
-      );
+    index = normalUpper.indexOf(char);
+
+    if (index !== -1) {
+      output += style.upper[index];
+      continue;
     }
 
-    // a-z
-    else if (code >= 97 && code <= 122) {
-      output += String.fromCodePoint(
-        0x1D41A + (code - 97)
-      );
+
+    index = normalLower.indexOf(char);
+
+    if (index !== -1) {
+      output += style.lower[index];
+      continue;
     }
 
-    // 0-9
-    else if (code >= 48 && code <= 57) {
-      output += String.fromCodePoint(
-        0x1D7CE + (code - 48)
-      );
+
+    index = normalDigits.indexOf(char);
+
+    if (index !== -1) {
+      output += style.digits[index];
+      continue;
     }
 
-    // остальные символы оставляем как есть
-    else {
-      output += char;
-    }
 
+    output += char;
   }
 
   return output;
 }
 
 
-input.addEventListener("input", () => {
-
-  result.value = toUnicodeBold(input.value);
-
-});
+const input = document.getElementById("input");
+const results = document.getElementById("results");
 
 
-copyBtn.addEventListener("click", async () => {
+function render() {
 
-  if (!result.value) {
-    return;
-  }
+  results.innerHTML = "";
 
-  try {
+  styles.forEach((style, index) => {
 
-    await navigator.clipboard.writeText(result.value);
+    const converted = convert(input.value, style);
 
-    copyBtn.textContent = "✓ Скопировано";
+    const card = document.createElement("div");
+    card.className = "style-card";
 
-    setTimeout(() => {
-      copyBtn.textContent = "Скопировать";
-    }, 1500);
 
-  }
+    const header = document.createElement("div");
+    header.className = "style-header";
 
-  catch {
 
-    result.select();
-    document.execCommand("copy");
+    const name = document.createElement("div");
+    name.className = "style-name";
+    name.textContent = style.name;
 
-    copyBtn.textContent = "✓ Скопировано";
 
-    setTimeout(() => {
-      copyBtn.textContent = "Скопировать";
-    }, 1500);
+    const button = document.createElement("button");
+    button.className = "copy-btn";
+    button.textContent = "Копировать";
 
-  }
 
-});
+    const output = document.createElement("div");
+    output.className = "output";
+    output.textContent = converted;
+
+
+    button.addEventListener("click", async () => {
+
+      try {
+
+        await navigator.clipboard.writeText(converted);
+
+      } catch {
+
+        const temp = document.createElement("textarea");
+        temp.value = converted;
+
+        document.body.appendChild(temp);
+
+        temp.select();
+
+        document.execCommand("copy");
+
+        temp.remove();
+      }
+
+
+      button.textContent = "✓ Скопировано";
+
+      setTimeout(() => {
+        button.textContent = "Копировать";
+      }, 1200);
+
+    });
+
+
+    header.appendChild(name);
+    header.appendChild(button);
+
+    card.appendChild(header);
+    card.appendChild(output);
+
+    results.appendChild(card);
+
+  });
+
+}
+
+
+input.addEventListener("input", render);
+
+render();
 
 </script>
 
